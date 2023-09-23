@@ -1,0 +1,8 @@
+version: 1.0.0
+files:
+  - url: evolveq-1.0.0-setup.exe
+    sha512: hg2U1zNxV1u4nraExXNCvwD7Sc/fu+60PGRsBTuwDq3YR3NXYI9m28Q6MotHAHercTVw47KdC8Hr/a7edc+NAg==
+    size: 79443263
+path: evolveq-1.0.0-setup.exe
+sha512: hg2U1zNxV1u4nraExXNCvwD7Sc/fu+60PGRsBTuwDq3YR3NXYI9m28Q6MotHAHercTVw47KdC8Hr/a7edc+NAg==
+releaseDate: '2023-09-23T07:10:34.929Z'
