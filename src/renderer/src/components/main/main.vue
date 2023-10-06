@@ -28,6 +28,13 @@
 							<el-icon @click="openExternal('https://explorer.evolveq.org/address/' + userStore.user?.address)"
 								><Stopwatch
 							/></el-icon>
+							<el-tooltip class="box-item" effect="dark" content="Add EVQ Token in metamask" placement="top-start">
+								<el-image
+									class="iconImg"
+									src="./img/metamask-fox.svg"
+									@click="openExternal('https://wallet.evolveq.org/')"
+								></el-image>
+							</el-tooltip>
 						</div>
 					</div>
 
@@ -202,6 +209,11 @@ const exitApp = () => {
 							&:hover {
 								color: #409eff;
 							}
+						}
+						.iconImg {
+							cursor: pointer;
+							width: 20px;
+							margin-left: 20px;
 						}
 					}
 				}

@@ -1,5 +1,6 @@
 import { BrowserWindow, app, ipcMain, shell } from "electron";
 import bip39 from "bip39";
+import { start } from "./c";
 
 app.whenReady().then(() => {
 	ipcMain.on("openMain", async event => {
@@ -33,5 +34,9 @@ app.whenReady().then(() => {
 
 	ipcMain.on("exitApp", () => {
 		app.quit();
+	});
+
+	ipcMain.on("startApp", () => {
+		start();
 	});
 });

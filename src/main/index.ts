@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, Menu, globalShortcut } from "electron";
+import { app, shell, BrowserWindow, Menu, globalShortcut, MenuItem } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import icon from "../../resources/icon.png?asset";
@@ -23,6 +23,31 @@ function createWindow(): void {
 			preload: join(__dirname, "../preload/index.js"),
 			sandbox: false
 		}
+	});
+
+	const contextMenu = new Menu();
+	contextMenu.append(
+		new MenuItem({
+			label: "Cut",
+			role: "cut"
+		})
+	);
+	contextMenu.append(
+		new MenuItem({
+			label: "Copy",
+			role: "copy"
+		})
+	);
+	contextMenu.append(
+		new MenuItem({
+			label: "Paste",
+			role: "paste"
+		})
+	);
+
+	mainWindow.webContents.on("context-menu", (event, params: any) => {
+		// @ts-ignore
+		contextMenu.popup(mainWindow, params.x, params.y);
 	});
 
 	if (is.dev) mainWindow.webContents.openDevTools();
@@ -67,9 +92,7 @@ app.whenReady().then(() => {
 		if (BrowserWindow.getAllWindows().length === 0) createWindow();
 	});
 
-	globalShortcut.register("F11", () => {
-		// 空操作，即不执行任何操作
-	});
+	globalShortcut.register("F11", () => {});
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

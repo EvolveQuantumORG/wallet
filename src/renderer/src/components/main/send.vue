@@ -46,7 +46,7 @@
 		</div>
 
 		<transition name="el-zoom-in-top">
-			<div v-if="Number(formData.number) > 0 && formData.address">
+			<div v-if="Number(formData.number) > 0 && formData.address && formData.address.length == 42">
 				<div class="explainBox">
 					<div class="valueBox">
 						<label> From </label>
@@ -57,10 +57,11 @@
 						<div class="value">
 							{{ formData.address }}
 							<br />
-							<span style="color: #f56c6c" v-if="!isSelfChainAddress">
+							<!-- <span style="color: #f56c6c" v-if="!isSelfChainAddress">
 								<el-icon><Warning /></el-icon>
 								Non-EvolveQuantum chain address detected
-							</span>
+							</span> -->
+							<el-tag v-if="!isSelfChainAddress" size="mini">BSC</el-tag>
 						</div>
 					</div>
 					<div class="valueBox">
@@ -179,6 +180,11 @@ const isSelfChainAddress = computed(() => {
 });
 
 const onSend = async () => {
+	if (!isSelfChainAddress.value && formData.value.token === "usdt") {
+		ElMessageBox.alert("USDT tokens for BEP20 are not currently available");
+		return;
+	}
+
 	await ElMessageBox.confirm("Please confirm sending, it will not be recovered after sending!", "Warning", {
 		confirmButtonText: "OK",
 		cancelButtonText: "Cancel",
@@ -189,7 +195,8 @@ const onSend = async () => {
 		address: formData.value.address,
 		coin_type: formData.value.token,
 		number: amountCoumput(),
-		fee: feeCoumput()
+		fee: feeCoumput(),
+		status: isSelfChainAddress.value ? 0 : 3
 	});
 
 	emit("getWallet");
@@ -238,7 +245,7 @@ const onSend = async () => {
 	}
 
 	.btn {
-		padding: 20px;
+		padding: 10px 20px;
 		.el-button {
 			width: 100%;
 		}

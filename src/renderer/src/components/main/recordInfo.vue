@@ -52,7 +52,7 @@
 				<div class="valueBox">
 					<label> Trade </label>
 					<div class="value">
-						EvolveQuantum -> EvolveQuantum
+						EQSC -> <span v-if="isSelfChainAddress">EQSC</span> <span v-else>BSC</span>
 						<el-tag size="small" style="margin-left: 10px">{{ recordInfoData.coin_type }}</el-tag>
 					</div>
 				</div>
@@ -76,6 +76,8 @@
 </template>
 
 <script setup lang="ts">
+import { ADDRESS_KEY } from "@renderer/config/CONFIG";
+import { SHA1_validate } from "@renderer/utils/crypto";
 import { copyToClipboard } from "@renderer/utils/tools";
 import { computed } from "vue";
 
@@ -86,6 +88,10 @@ const close = () => {
 const props = defineProps<{
 	recordInfoData: Record<string, any>;
 }>();
+
+const isSelfChainAddress = computed(() => {
+	return SHA1_validate(props.recordInfoData.to, ADDRESS_KEY);
+});
 
 const copy = (value: string) => {
 	copyToClipboard(value);

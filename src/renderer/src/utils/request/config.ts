@@ -7,7 +7,7 @@ switch (process.env.NODE_ENV) {
 		BASE_URL = "/wallet";
 		break;
 	case "production":
-		BASE_URL = "/wallet";
+		BASE_URL = "https://wallet.evolveq.org/wallet";
 		break;
 	case "test":
 		BASE_URL = "/test";

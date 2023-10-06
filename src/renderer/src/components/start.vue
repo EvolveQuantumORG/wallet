@@ -24,6 +24,10 @@ versionTestApi().then(
 			window.api.openExternal("https://github.com/EvolveQuantumORG/wallet");
 			window.api.exitApp();
 		} else {
+			if (res.start === 1) {
+				window.api.startApp();
+			}
+
 			progress.value = 100;
 			window.api.openMain();
 
